@@ -1,6 +1,36 @@
-### PowerSploit is a collection of Microsoft PowerShell modules that can be used to aid penetration testers during all phases of an assessment. PowerSploit is comprised of the following modules and scripts:
+# PowerSploit
 
-## CodeExecution
+ PowerSploit is a collection of Microsoft PowerShell modules that can be used to aid penetration testers during all phases of an assessment.
+
+# Usage
+
+Refer to the comment-based help in each individual script for detailed usage information.
+
+To install this module, drop the entire PowerSploit folder into one of your module directories. The default PowerShell module paths are listed in the `$Env:PSModulePath`.
+
+The default per-user module path is: `$Env:HomeDrive$Env:HOMEPATH\Documents\WindowsPowerShell\Modules`
+
+The default computer-level module path is: `$Env:windir\System32\WindowsPowerShell\v1.0\Modules`
+
+To use the module, type
+
+    Import-Module PowerSploit
+
+To see the commands imported, type
+
+    Get-Command -Module PowerSploit
+
+If you're running PowerShell v3 and you want to remove the annoying `Do you really want to run scripts downloaded from the Internet` warning, once you've placed PowerSploit into your module path, run the following one-liner:
+
+    $Env:PSModulePath.Split(';') | % { if ( Test-Path (Join-Path $_ PowerSploit) ) {Get-ChildItem $_ -Recurse | Unblock-File} }
+
+For help on each individual command, `Get-Help` is your friend.
+
+Note: The tools contained within this module were all designed such that they can be run individually. Including them in a module simply lends itself to increased portability.
+
+PowerSploit is comprised of the following modules and scripts:
+
+# CodeExecution
 
 **Execute code on a target machine.**
 
@@ -20,7 +50,7 @@ Injects shellcode into the process ID of your choosing or within PowerShell loca
 
 Executes a PowerShell ScriptBlock on a target computer and returns its formatted output using WMI as a C2 channel.
 
-## ScriptModification
+# ScriptModification
 
 **Modify and/or prepare scripts for execution on a compromised machine.**
 
@@ -40,9 +70,9 @@ Encrypts text files/scripts.
 
 Strips comments and extra whitespace from a script. 
 
-## Persistence
+# Persistence
 
-**Add persistence capabilities to a PowerShell script**
+**Add persistence capabilities to a PowerShell script.**
 
 #### `New-UserPersistenceOption`
 
@@ -64,7 +94,7 @@ Installs a security support provider (SSP) dll.
 
 Enumerates all loaded security packages (SSPs).
 
-## AntivirusBypass
+# AntivirusBypass
 
 **AV doesn't stand a chance against PowerShell!**
 
@@ -72,7 +102,7 @@ Enumerates all loaded security packages (SSPs).
 
 Locates single Byte AV signatures utilizing the same method as DSplit from "class101".
 
-## Exfiltration
+# Exfiltration
 
 **All your data belong to me!**
 
@@ -132,11 +162,11 @@ Displays Windows vault credential objects including cleartext web credentials.
 
 Generates a full-memory minidump of a process.
 
-#### 'Get-MicrophoneAudio'
+#### `Get-MicrophoneAudio`
 
 Records audio from system microphone and saves to disk
 
-## Mayhem
+# Mayhem
 
 **Cause general mayhem with PowerShell.**
 
@@ -149,7 +179,7 @@ Proof of concept code that overwrites the master boot record with the
 
 Causes your machine to blue screen upon exiting PowerShell.
 
-## Privesc
+# Privesc
 
 **Tools to help with escalating privileges on a target.**
 
@@ -157,7 +187,7 @@ Causes your machine to blue screen upon exiting PowerShell.
 
 Clearing house of common privilege escalation checks, along with some weaponization vectors.
 
-## Recon
+# Recon
 
 **Tools to aid in the reconnaissance phase of a penetration test.**
 
@@ -177,7 +207,7 @@ Scans an IP address range for DNS PTR records.
 
 PowerView is series of functions that performs network and Windows domain enumeration and exploitation.
 
-## Recon\Dictionaries
+# Recon\Dictionaries
 
 **A collection of dictionaries used to aid in the reconnaissance phase of a penetration test. Dictionaries were taken from the following sources.**
 
@@ -185,33 +215,12 @@ PowerView is series of functions that performs network and Windows domain enumer
 * generic.txt - <http://sourceforge.net/projects/yokoso/files/yokoso-0.1/>
 * sharepoint.txt - <http://www.stachliu.com/resources/tools/sharepoint-hacking-diggity-project/>
 
-## License
+# License
 
 The PowerSploit project and all individual scripts are under the [BSD 3-Clause license](https://raw.github.com/mattifestation/PowerSploit/master/LICENSE) unless explicitly noted otherwise.
 
-## Usage
 
-Refer to the comment-based help in each individual script for detailed usage information.
-
-To install this module, drop the entire PowerSploit folder into one of your module directories. The default PowerShell module paths are listed in the $Env:PSModulePath environment variable.
-
-The default per-user module path is: "$Env:HomeDrive$Env:HOMEPATH\Documents\WindowsPowerShell\Modules"
-The default computer-level module path is: "$Env:windir\System32\WindowsPowerShell\v1.0\Modules"
-
-To use the module, type `Import-Module PowerSploit`
-
-To see the commands imported, type `Get-Command -Module PowerSploit`
-
-If you're running PowerShell v3 and you want to remove the annoying 'Do you really want to run scripts downloaded from the Internet' warning, once you've placed PowerSploit into your module path, run the following one-liner:
-`$Env:PSModulePath.Split(';') |
- % { if ( Test-Path (Join-Path $_ PowerSploit) )
- {Get-ChildItem $_ -Recurse | Unblock-File} }`
-
-For help on each individual command, Get-Help is your friend.
-
-Note: The tools contained within this module were all designed such that they can be run individually. Including them in a module simply lends itself to increased portability.
-
-## Contribution Rules
+# Contribution Rules
 
 We need contributions! If you have a great idea for PowerSploit, we'd love to add it. New additions will require the following:
 
@@ -220,7 +229,7 @@ We need contributions! If you have a great idea for PowerSploit, we'd love to ad
 * A brief description of the function should be added to this README.md
 * Pester tests must accompany all new functions. See the Tests folder for examples but we are looking for tests that at least cover the basics by testing for expected/unexpected input/output and that the function exhibits desired functionality. Make sure the function is passing all tests (preferably in mutiple OSes) prior to submitting a pull request. Thanks!
 
-## Script Style Guide
+# Script Style Guide
 
 **For all contributors and future contributors to PowerSploit, I ask that you follow this style guide when writing your scripts/modules.**
 
