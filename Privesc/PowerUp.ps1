@@ -1,6 +1,5 @@
 <#
-    PowerUp aims to be a clearinghouse of common Windows privilege escalation
-    vectors that rely on misconfigurations. See README.md for more information.
+    PowerUp aims to be a clearinghouse of common Windows privilege escalation vectors that rely on misconfigurations. See README.md for more information.
 
     Author: @harmj0y
     License: BSD 3-Clause
@@ -125,7 +124,6 @@ function func
 
     New-Object PSObject -Property $Properties
 }
-
 
 function Add-Win32Type
 {
@@ -362,7 +360,6 @@ are all incorporated into the same in-memory module.
     }
 }
 
-
 function psenum
 {
 <#
@@ -479,7 +476,6 @@ New-Enum. :P
 
     $EnumBuilder.CreateType()
 }
-
 
 # A helper function used to reduce typing while defining struct
 # fields.

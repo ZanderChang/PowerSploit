@@ -53,11 +53,11 @@ Records 10 seconds of audio to the path C:\windows\temp\secret.wav using WinMM a
 		Param
 		(
 			[OutputType([Type])]
-			
+
 			[Parameter( Position = 0)]
 			[Type[]]
 			$Parameters = (New-Object Type[](0)),
-			
+
 			[Parameter( Position = 1 )]
 			[Type]
 			$ReturnType = [Void]
@@ -72,7 +72,7 @@ Records 10 seconds of audio to the path C:\windows\temp\secret.wav using WinMM a
 		$ConstructorBuilder.SetImplementationFlags('Runtime, Managed')
 		$MethodBuilder = $TypeBuilder.DefineMethod('Invoke', 'Public, HideBySig, NewSlot, Virtual', $ReturnType, $Parameters)
 		$MethodBuilder.SetImplementationFlags('Runtime, Managed')
-		
+
 		Write-Output $TypeBuilder.CreateType()
 	}
 
@@ -82,11 +82,11 @@ Records 10 seconds of audio to the path C:\windows\temp\secret.wav using WinMM a
 		Param
 		(
 			[OutputType([IntPtr])]
-		
+
 			[Parameter( Position = 0, Mandatory = $True )]
 			[String]
 			$Module,
-			
+
 			[Parameter( Position = 1, Mandatory = $True )]
 			[String]
 			$Procedure
@@ -103,7 +103,7 @@ Records 10 seconds of audio to the path C:\windows\temp\secret.wav using WinMM a
 		$Kern32Handle = $GetModuleHandle.Invoke($null, @($Module))
 		$tmpPtr = New-Object IntPtr
 		$HandleRef = New-Object System.Runtime.InteropServices.HandleRef($tmpPtr, $Kern32Handle)
-		
+
 		# Return the address of the function
 		Write-Output $GetProcAddress.Invoke($null, @([System.Runtime.InteropServices.HandleRef]$HandleRef, $Procedure))
 	} 
@@ -154,18 +154,17 @@ Records 10 seconds of audio to the path C:\windows\temp\secret.wav using WinMM a
 
 	if ($DeviceCount -gt 0)
 	{
-
 		#Define buffer for MCI errors. https://msdn.microsoft.com/en-us/library/windows/desktop/dd757153(v=vs.85).aspx
 		$errmsg = New-Object Text.StringBuilder 150
 
 		#Open an alias
 		$rtnVal = $mciSendString.Invoke("open new Type waveaudio Alias $alias",'',0,0)
 		if ($rtnVal -ne 0) {$mciGetErrorString.Invoke($rtnVal,$errmsg,150); $msg=$errmsg.ToString();Throw "MCI Error ($rtnVal): $msg"}
-		
+
 		#Call recording function
 		$rtnVal = $mciSendString.Invoke("record $alias", '', 0, 0)
 		if ($rtnVal -ne 0) {$mciGetErrorString.Invoke($rtnVal,$errmsg,150); $msg=$errmsg.ToString();Throw "MCI Error ($rtnVal): $msg"}
-		
+
 		Start-Sleep -s $Length
 
 		#save recorded audio to disk
@@ -178,7 +177,6 @@ Records 10 seconds of audio to the path C:\windows\temp\secret.wav using WinMM a
 
 		$OutFile = Get-ChildItem -path $path 
 		Write-Output $OutFile
-
 	}
 	else
 	{

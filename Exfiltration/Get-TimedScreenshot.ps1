@@ -38,15 +38,15 @@ https://github.com/mattifestation/PowerSploit/blob/master/Exfiltration/Get-Timed
 #>
 
     [CmdletBinding()] Param(
-        [Parameter(Mandatory=$True)]             
+        [Parameter(Mandatory=$True)]
         [ValidateScript({Test-Path -Path $_ })]
-        [String] $Path, 
+        [String] $Path,
 
-        [Parameter(Mandatory=$True)]             
+        [Parameter(Mandatory=$True)]
         [Int32] $Interval,
 
-        [Parameter(Mandatory=$True)]             
-        [String] $EndTime    
+        [Parameter(Mandatory=$True)]
+        [String] $EndTime
     )
 
     #Define helper function that generates and saves screenshot
@@ -76,18 +76,18 @@ https://github.com/mattifestation/PowerSploit/blob/master/Exfiltration/Get-Timed
        $ScreenshotObject.Dispose()
     }
 
-    Try {
-            
+    Try
+    {
         #load required assembly
-        Add-Type -Assembly System.Windows.Forms            
-
-        Do {
+        Add-Type -Assembly System.Windows.Forms
+        Do
+        {
             #get the current time and build the filename from it
             $Time = (Get-Date)
-            
+
             [String] $FileName = "$($Time.Month)"
             $FileName += '-'
-            $FileName += "$($Time.Day)" 
+            $FileName += "$($Time.Day)"
             $FileName += '-'
             $FileName += "$($Time.Year)"
             $FileName += '-'
@@ -97,13 +97,13 @@ https://github.com/mattifestation/PowerSploit/blob/master/Exfiltration/Get-Timed
             $FileName += '-'
             $FileName += "$($Time.Second)"
             $FileName += '.png'
-            
+
             #use join-path to add path to filename
             [String] $FilePath = (Join-Path $Path $FileName)
 
             #run screenshot function
             Get-Screenshot
-               
+
             Write-Verbose "Saved screenshot to $FilePath. Sleeping for $Interval seconds"
 
             Start-Sleep -Seconds $Interval

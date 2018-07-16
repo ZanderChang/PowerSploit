@@ -72,7 +72,8 @@ This cmdlet was inspired by the createcmd.ps1 script introduced during Dave Kenn
 http://www.exploit-monday.com
 #>
 
-    [CmdletBinding( DefaultParameterSetName = 'FilePath')] Param (
+    [CmdletBinding( DefaultParameterSetName = 'FilePath')] 
+    Param (
         [Parameter(Position = 0, ValueFromPipeline = $True, ParameterSetName = 'ScriptBlock' )]
         [ValidateNotNullOrEmpty()]
         [ScriptBlock]
